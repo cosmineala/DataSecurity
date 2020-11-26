@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DS.Cesar
+namespace DS.Caesar
 {
-    public class Cesar
+    public class Caesar
     {
         public static IEnumerable<string> DecryptBruteforce( string message)
         {
@@ -12,7 +12,7 @@ namespace DS.Cesar
             List<string> list = new List<string>();
             for(int i=0; i < 26; i++)
             {
-                list.Add(Cesar.Decrypt(message, i));
+                list.Add(Caesar.Decrypt(message, i));
             }
             return list;
         }
@@ -53,7 +53,7 @@ namespace DS.Cesar
                 }
                 else
                 {
-                    dencryptedText += Cesar.DecryptLetter(letter, shift);
+                    dencryptedText += Caesar.DecryptLetter(letter, shift);
                 }
             }
             return dencryptedText;
