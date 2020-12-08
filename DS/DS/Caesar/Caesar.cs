@@ -93,7 +93,12 @@ namespace DS.Caesar
                 else
                     output = shift.ToString();
 
-                output = (char)englishFL + " -> " + messageFL + " | + " + output + " | " + Decrypt(message, shift);
+                string messageInstance = Decrypt(message, shift);
+
+                int matchees = WordsAnalyzer.GetMatchesNumber( messageInstance );
+
+
+                output = (char)englishFL + " -> " + messageFL + " | + " + output + " | " + messageInstance + " | No. Macthees:" + matchees ;
 
                 list.Add(output);
             }
