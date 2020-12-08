@@ -2,30 +2,34 @@
 using System.Collections.Generic;
 using System.Text;
 
+using DS.Dictionary;
+
 namespace DS.Caesar
 {
     public class Caesar
     {
-        public static IEnumerable<string> DecryptBruteforce( string message)
+        public class Print
         {
-            message = message.ToUpper();
-            List<string> list = new List<string>();
-            for(int i=0; i < 26; i++)
+            public static void Bruteforce(string message)
             {
-                list.Add(Caesar.Decrypt(message, i));
+                IEnumerable<string> list = DecryptBruteforce(message);
+                int i = 0;
+                foreach (string element in list)
+                {
+                    Console.WriteLine("+" + i + " >>>" + element);
+                    i++;
+                }
             }
-            return list;
-        }
-        public static void PrintBruteforce( string message)
-        {
-            IEnumerable<string> list = DecryptBruteforce(message);
-            int i = 0;
-            foreach( string element in list)
+            public static void DecryptCryptanalytic( string message)
             {
-                Console.WriteLine("+" + i + " >>>" + element );
-                i++;
+                IEnumerable<string> list = Caesar.DecryptCryptanalytic(message);
+                foreach( var line in list)
+                {
+                    Console.WriteLine(line);
+                }
             }
         }
+
         public static string Encrypt( string text, int shift)
         {
             string encryptedText = "";
@@ -58,6 +62,46 @@ namespace DS.Caesar
             }
             return dencryptedText;
         }
+
+        public static IEnumerable<string> DecryptBruteforce(string message)
+        {
+            message = message.ToUpper();
+            List<string> list = new List<string>();
+            for (int i = 0; i < 26; i++)
+            {
+                list.Add(Caesar.Decrypt(message, i));
+            }
+            return list;
+        }
+
+        public static IEnumerable<string> DecryptCryptanalytic(string message)
+        {
+            message = message.ToUpper();
+            List<string> list = new List<string>();
+            LetterCounter counter = new LetterCounter(message);
+            counter.sortByAmount();
+            var messageFL = counter.GetBest(); // message most frequent letter
+
+            foreach ( var englishFL in LetterCounter.FrequencyList)
+            {
+                //bestLetter -> freq
+                int shift = messageFL - englishFL;
+                string output;
+
+                if (shift < 10)
+                    output = shift + " ";
+                else
+                    output = shift.ToString();
+
+                output = (char)englishFL + " -> " + messageFL + " | + " + output + " | " + Decrypt(message, shift);
+
+                list.Add(output);
+            }
+            return list;
+        }
+
+
+
         public static char DecryptLetter( char letter, int shift)
         {
             int output;
