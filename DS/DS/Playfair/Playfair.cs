@@ -7,7 +7,18 @@ namespace DS.Playfair
 {
     public class Playfair
     {
+		public class Print
+        {
+			public static void Encrypt(string input, string key)
+			{
+				Console.WriteLine(Playfair.Encrypt(input, key));
+			}
+			public static void Decrypt(string input, string key)
+			{
+				Console.WriteLine(Playfair.Decrypt(input, key));
+			}
 
+		}
 		public static string Encrypt(string input, string key)
 		{
 			return Cipher(FormatInput(input), FormatKey( key ), true);
