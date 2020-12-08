@@ -8,6 +8,19 @@ namespace DS.Vigenere
 {
     public class Vigenere
     {
+        public class Print
+        {
+            public static void Encrypt(string message, string key)
+            {
+                Console.WriteLine(Vigenere.Encrypt(message, key));
+            }
+
+            public static void Decrypt(string message, string key)
+            {
+                Console.WriteLine(Vigenere.Decrypt(message, key));
+            }
+        }
+
         public static string Encrypt( string message, string key)
         {
             string output = "" ;
