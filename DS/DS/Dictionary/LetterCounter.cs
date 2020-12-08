@@ -6,6 +6,7 @@ namespace DS.Dictionary
 {
     public class LetterCounter
     {
+        public static IEnumerable<char> FrequencyList { get; } = new List<char>() { 'E', 'T', 'A', 'O', 'I', 'N', 'S', 'R', 'H', 'D', 'L', 'U', 'C', 'M', 'F', 'Y', 'W', 'G', 'P', 'B', 'V', 'K', 'X', 'Q', 'J' };
         class Letter
         {
             public char letter;
@@ -66,6 +67,11 @@ namespace DS.Dictionary
         public void sortByAlphabet()
         {
             letters.Sort((x, y) => x.letter.CompareTo(y.letter));
+        }
+
+        public char GetBest()
+        {
+            return this.letters[0].letter;
         }
 
         public void print()
