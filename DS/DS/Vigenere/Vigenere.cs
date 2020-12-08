@@ -19,6 +19,19 @@ namespace DS.Vigenere
             {
                 Console.WriteLine(Vigenere.Decrypt(message, key));
             }
+            public static void DectyptBruteforce(string message, IEnumerable<string> keys, int amount)
+            {
+                IEnumerable<Container> output = Vigenere.DecryptBruteforce(message, keys);
+                int count = 0;
+                foreach(var variant in output)
+                {
+                    Console.WriteLine(variant.matches + " | " + variant.message);
+                    if( count++ > amount)
+                    {
+                        return;
+                    }
+                }
+            }
         }
 
         public static string Encrypt( string message, string key)
@@ -68,7 +81,30 @@ namespace DS.Vigenere
             return output;
         }
 
+        public class Container
+        {
+            public string message;
+            public int matches;
+        }
 
+        public static IEnumerable<Container> DecryptBruteforce(string message, IEnumerable<string> keys )
+        {
+            List<Container> output = new List<Container>();
+            foreach( var key in keys)
+            {
+                var variant = Decrypt(message, key);
+                output.Add(new Container() { message = variant, matches = WordsAnalyzer.GetMatchesNumber(variant) });
+            }
+            output.Sort( (x,y)=> y.matches.CompareTo(x.matches ));
+            return output;
+        }
+        //Parallel.ForEach(WordsAnalyzer.EnglishWords, new ParallelOptions { MaxDegreeOfParallelism = 2 }, (curentWord) =>
+        //    {
+        //        if(input.Contains(curentWord))
+        //        {
+        //            matchesStore.Add();
+        //        }
+        //    });
 
     }
 }
