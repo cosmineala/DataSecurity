@@ -23,38 +23,23 @@ namespace DS.Dictionary
             }
         }
 
-        class MatchesStore
-        {
-            object lockObject = new object();
-            int numberOfMatches = 0;
-            
-            public void Add()
-            {
-                lock( lockObject)
-                {
-                    numberOfMatches++;
-                }
-            }
-
-            public int GetNumberOfMatches()
-            {
-                return numberOfMatches;
-            }
-        }
 
         public static int GetMatchesNumber( string input)
         {
             input = RemoveWhitespace(input);
-            MatchesStore matchesStore = new MatchesStore();
+            int matchesStore = 0;
 
-            Parallel.ForEach( WordsAnalyzer.EnglishWords , new ParallelOptions { MaxDegreeOfParallelism = 2 }, (curentWord) =>
+            object lockOb = new object();
+
+            //foreach (WordsAnalyzer.EnglishWords , new ParallelOptions { MaxDegreeOfParallelism = 2 }, (curentWord) =>
+            foreach ( var curentWord in WordsAnalyzer.EnglishWords)
             {
                 if( input.Contains(curentWord))
                 {
-                    matchesStore.Add();
+                        matchesStore++;
                 }
-            });
-            return matchesStore.GetNumberOfMatches();
+            }
+            return matchesStore;
         }
 
         public static string RemoveWhitespace(string input)
