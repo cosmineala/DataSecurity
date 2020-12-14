@@ -1,11 +1,14 @@
 ﻿using System;
 
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.IO;
+
 using DS.Caesar;
 using DS.Playfair;
 using DS.Dictionary;
 using DS.Vigenere;
-using System.Diagnostics;
-using System.Collections.Generic;
+using DS.FileManager;
 
 namespace Program
 {
@@ -19,9 +22,17 @@ namespace Program
             var k  = "DINTWOFNTHTITTF";
 
 
-            Vigenere.Print.AutoEncrypt(i1, k);
-            Vigenere.Print.AutoDecrypt(i2, k);
- 
+            //Vigenere.Print.AutoEncrypt(i1, k);
+            //Vigenere.Print.AutoDecrypt(i2, k);
+
+            //foreach( var file in Directory.GetFiles( FileManager.InputsDirectory ))
+            //{
+            //    Console.WriteLine("\t" + file);
+            //}
+
+            CipherFile cipher = new CipherFile("Test1.txt");
+            cipher.Print();
+
         }
     }
 }
