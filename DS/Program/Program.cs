@@ -33,6 +33,13 @@ namespace Program
             CipherFile cipher = new CipherFile("Test1.txt");
             cipher.Print();
 
+            //CipherFile cipher1 = new CipherFile("Output1.txt");
+            //cipher1.Key = "key";
+            //cipher1.Message = "message";
+            //cipher1.Create();
+
+            CipherFile fileOut = new CipherFile("testOut.txt", "Ana are mere", "Pere");
+
         }
     }
 }

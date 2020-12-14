@@ -22,10 +22,15 @@ namespace DS.FileManager
             {
                 ExtractData();
             }
-            else
-            {
-                FileManager.CreateFile(File);
-            }  
+        }
+
+        public CipherFile(string file, string message, string key)
+        {
+            Name = file;
+            File = FileManager.GetInputFile(Name);
+            Message = message;
+            Key = key;
+            Create();
         }
 
         public void Print()
@@ -40,6 +45,11 @@ namespace DS.FileManager
             string[] lines = System.IO.File.ReadAllLines(File);
             Key = lines[0];
             Message = lines[1];
+        }
+
+        public void Create()
+        {
+            System.IO.File.WriteAllText(File, Key + "\n" + Message );
         }
 
     }
