@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+
 using DS.Dictionary;
+using DS.FileManager;
 
 namespace DS.Vigenere
 {
@@ -33,7 +35,7 @@ namespace DS.Vigenere
                     }
                 }
             }
-
+            
             // Aouto key
             public static void AutoEncrypt( string message, string key)
             {
@@ -42,6 +44,34 @@ namespace DS.Vigenere
             public static void AutoDecrypt(string message, string key)
             {
                 Console.WriteLine(Vigenere.AutoDecrypt(message, key));
+            }
+        }
+
+        public class File
+        {
+            // Clasic
+            public static void Encrypt(string filename)
+            {
+                var input = new CipherFile(filename);
+                new CipherFile( input.Name + "--Vigenere--Encrypt.txt", Vigenere.Encrypt(input.Message, input.Key), input.Key);
+            }
+            public static void Decrypt(string filename)
+            {
+                var input = new CipherFile(filename);
+                new CipherFile( input.Name + "--Vigenere--Decrypt.txt", Vigenere.Decrypt(input.Message, input.Key), input.Key);
+            }
+
+            // Auto key
+
+            public static void AutoEncrypt(string filename)
+            {
+                var input = new CipherFile(filename);
+                new CipherFile(input.Name + "--Vigenere_Auto--Encrypt.txt", Vigenere.AutoEncrypt(input.Message, input.Key), input.Key);
+            }
+            public static void AutoDecrypt(string filename)
+            {
+                var input = new CipherFile(filename);
+                new CipherFile(input.Name + "--Vigenere_Auto--Decrypt.txt", Vigenere.AutoDecrypt(input.Message, input.Key), input.Key);
             }
         }
 

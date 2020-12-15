@@ -22,24 +22,12 @@ namespace Program
             var k  = "DINTWOFNTHTITTF";
 
 
-            //Vigenere.Print.AutoEncrypt(i1, k);
-            //Vigenere.Print.AutoDecrypt(i2, k);
+            Vigenere.Print.AutoEncrypt(i1, k);
+            Vigenere.Print.AutoDecrypt(i2, k);
 
-            //foreach( var file in Directory.GetFiles( FileManager.InputsDirectory ))
-            //{
-            //    Console.WriteLine("\t" + file);
-            //}
 
-            CipherFile cipher = new CipherFile("Test1.txt");
-            cipher.Print();
-
-            //CipherFile cipher1 = new CipherFile("Output1.txt");
-            //cipher1.Key = "key";
-            //cipher1.Message = "message";
-            //cipher1.Create();
-
-            CipherFile fileOut = new CipherFile("testOut.txt", "Ana are mere", "Pere");
-
+            Vigenere.File.AutoEncrypt("DeCriptat_1.txt");
+            Vigenere.File.AutoDecrypt("DeDecriptat_2.txt");
         }
     }
 }
