@@ -37,14 +37,17 @@ namespace DS.Vigenere
             }
             
             // Aouto key
-            public static void AutoEncrypt( string message, string key)
-            {
+            public static void AutoEncrypt( string message, string key) =>
                 Console.WriteLine(Vigenere.AutoEncrypt(message, key));
-            }
-            public static void AutoDecrypt(string message, string key)
-            {
+
+            public static void AutoDecrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.AutoDecrypt(message, key));
-            }
+
+            public static void BeaufortEncrypt(string message, string key) =>
+                Console.WriteLine(Vigenere.BeaufortEncrypt(message, key));
+
+            public static void BeaufortDecrypt(string message, string key) =>
+                Console.WriteLine(Vigenere.BeaufortDecrypt(message, key));
         }
 
         public class File
@@ -62,7 +65,6 @@ namespace DS.Vigenere
             }
 
             // Auto key
-
             public static void AutoEncrypt(string filename)
             {
                 var input = new CipherFile(filename);
@@ -73,6 +75,21 @@ namespace DS.Vigenere
                 var input = new CipherFile(filename);
                 new CipherFile(input.Name + "--Vigenere_Auto--Decrypt.txt", Vigenere.AutoDecrypt(input.Message, input.Key), input.Key);
             }
+            // ~ Auto key
+
+            // Beaufort
+            public static void BeaufortEncrypt(string filename)
+            {
+                var input = new CipherFile(filename);
+                new CipherFile(input.Name + "--Beaufort--Encrypt.txt", Vigenere.BeaufortEncrypt(input.Message, input.Key), input.Key);
+            }
+            public static void BeaufortDecrypt(string filename)
+            {
+                var input = new CipherFile(filename);
+                new CipherFile(input.Name + "--Beaufort--Decrypt.txt", Vigenere.BeaufortDecrypt(input.Message, input.Key), input.Key);
+            }
+            // ~ Beaufort
+
         }
 
         // Clasic
@@ -209,6 +226,42 @@ namespace DS.Vigenere
             return output;
         }
         // ~ Auto Key
+
+
+        // Beaufort  
+        public static string BeaufortEncrypt( string message, string key )
+        {
+            string output = "";
+            int j = 0;
+            for (int i = 0; i < message.Length; i++)
+            {
+                if (Char.IsLetter(message[i]))
+                {
+                    int partial = LetterConvertor.ToNumber(key[(i - j) % key.Length]) - LetterConvertor.ToNumber(message[i]);
+
+                    if( partial < 0)
+                    {
+                        output += LetterConvertor.ToCharUpper(partial + 26);
+                    }
+                    else
+                    {
+                        output += LetterConvertor.ToCharUpper(partial);
+                    }
+                }
+                else
+                {
+                    output += message[i];
+                    j++;
+                }
+            }
+            return output;
+        }
+
+        public static string BeaufortDecrypt(string message, string key) =>
+            BeaufortEncrypt(message, key);
+
+        // ~ Beaufort
+
 
         static private char ToCyclicAlphabet( int part)
         {

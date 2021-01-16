@@ -18,16 +18,15 @@ namespace Program
         {
 
             var i1 = "PEOPL EOFME DIOCR EABIL ITYSO METIM ESACH IEVEO UTSTA NDING";
-            var i2 = "SMBIH STSFL WQHVW TEPXW MHDES PMHKD ISBKS QXTWC GXLBM RVIPN";
+            var i2 = "OEZEL KRIHD QAFRO ZIMLL GMPBT HEALT ZQNRP GBSPT ZPBAF QFFGQ";
+
             var k  = "DINTWOFNTHTITTF";
 
+            Vigenere.Print.BeaufortEncrypt(i1, k);
+            Vigenere.Print.BeaufortDecrypt(i2, k);
 
-            Vigenere.Print.AutoEncrypt(i1, k);
-            Vigenere.Print.AutoDecrypt(i2, k);
-
-
-            Vigenere.File.AutoEncrypt("DeCriptat_1.txt");
-            Vigenere.File.AutoDecrypt("DeDecriptat_2.txt");
+            Vigenere.File.BeaufortEncrypt("DeCriptat_1.txt");
+            Vigenere.File.BeaufortDecrypt("DeDecriptat_2.txt");
         }
     }
 }

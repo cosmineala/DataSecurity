@@ -1,0 +1,33 @@
+                                                   a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z
+a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z 
+0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+
+
+T + c = J
+19+ 2 = 9
+
+H + R = K
+7 + 17= 10
+
+
+
+f(x,y)(Beaufort-encrypt)=>{
+	
+	if( x <= y ):
+		y-x
+
+	if( x > y ):
+		y - x + 26
+}
+
+	if(x<=y) = y-x
+
+	if( x > y ) y - x + 26
+
+
+x 19; y 2
+2 - 19 + 26 = 9
+
+x:7; y:17 -> 10
+
+17 - 7 = 10
