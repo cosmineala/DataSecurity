@@ -13,15 +13,10 @@ namespace DS.Vigenere
         public class Print
         {
             // Clasic
-            public static void Encrypt(string message, string key)
-            {
+            public static void Encrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.Encrypt(message, key));
-            }
-
-            public static void Decrypt(string message, string key)
-            {
+            public static void Decrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.Decrypt(message, key));
-            }
             public static void DectyptBruteforce(string message, IEnumerable<string> keys, int amount)
             {
                 IEnumerable<Container> output = Vigenere.DecryptBruteforce(message, keys);
@@ -35,19 +30,21 @@ namespace DS.Vigenere
                     }
                 }
             }
-            
-            // Aouto key
+            // ~ Clasic
+
+            // Auto key
             public static void AutoEncrypt( string message, string key) =>
                 Console.WriteLine(Vigenere.AutoEncrypt(message, key));
-
             public static void AutoDecrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.AutoDecrypt(message, key));
+            // Auto key
 
+            // Beaufort
             public static void BeaufortEncrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.BeaufortEncrypt(message, key));
-
             public static void BeaufortDecrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.BeaufortDecrypt(message, key));
+            // ~ Beaufort
         }
 
         public class File
@@ -63,6 +60,7 @@ namespace DS.Vigenere
                 var input = new CipherFile(filename);
                 new CipherFile( input.Name + "--Vigenere--Decrypt.txt", Vigenere.Decrypt(input.Message, input.Key), input.Key);
             }
+            // ~ Clasic
 
             // Auto key
             public static void AutoEncrypt(string filename)
@@ -155,6 +153,7 @@ namespace DS.Vigenere
             output.Sort( (x,y)=> y.matches.CompareTo(x.matches ));
             return output;
         }
+        // ~ Clasic
 
         // Auto key
         public static string AutoEncrypt(string message, string key)
