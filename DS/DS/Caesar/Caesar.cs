@@ -78,11 +78,11 @@ namespace DS.Caesar
         {
             message = message.ToUpper();
             List<string> list = new List<string>();
-            LetterCounter counter = new LetterCounter(message);
+            DLetterfrequency counter = new DLetterfrequency(message);
             counter.sortByAmount();
             var messageFL = counter.GetBest(); // message most frequent letter
 
-            foreach ( var englishFL in LetterCounter.FrequencyList)
+            foreach ( var englishFL in DLetterfrequency.FrequencyList)
             {
                 //bestLetter -> freq
                 int shift = messageFL - englishFL;
@@ -95,7 +95,7 @@ namespace DS.Caesar
 
                 string messageInstance = Decrypt(message, shift);
 
-                int matchees = WordsAnalyzer.GetMatchesNumber( messageInstance );
+                int matchees = DWord.GetMatchesNumber( messageInstance );
 
 
                 output = (char)englishFL + " -> " + messageFL + " | + " + output + " | " + messageInstance + " | No. Macthees:" + matchees ;

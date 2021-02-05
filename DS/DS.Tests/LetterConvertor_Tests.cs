@@ -19,8 +19,8 @@ namespace DS.Tests
             int output_H;
             int output_L;
 
-            output_H = LetterConvertor.ToNumber( input_H );
-            output_L = LetterConvertor.ToNumber(input_L);
+            output_H = DLetter.ToInt( input_H );
+            output_L = DLetter.ToInt(input_L);
 
             Assert.AreEqual( output_H , output_Exprecteed_H);
             Assert.AreEqual(output_L, output_Exprecteed_L);
@@ -34,7 +34,7 @@ namespace DS.Tests
 
             char output;
 
-            output = LetterConvertor.ToCharUpper(input);
+            output = DLetter.ToCharUp(input);
 
             Assert.AreEqual(output, output_Expecteed);
         }
@@ -47,7 +47,7 @@ namespace DS.Tests
 
             char output;
 
-            output = LetterConvertor.ToCharLower(input);
+            output = DLetter.ToCharLo(input);
 
             Assert.AreEqual(output, output_Expecteed);
         }

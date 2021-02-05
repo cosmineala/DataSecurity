@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DS.Dictionary
 {
-    public class LetterCounter
+    public class DLetterfrequency
     {
         public static IEnumerable<char> FrequencyList { get; } = new List<char>() { 'E', 'T', 'A', 'O', 'I', 'N', 'S', 'R', 'H', 'D', 'L', 'U', 'C', 'M', 'F', 'Y', 'W', 'G', 'P', 'B', 'V', 'K', 'X', 'Q', 'J' };
         class Letter
@@ -20,7 +20,7 @@ namespace DS.Dictionary
         List<Letter> letters = new List<Letter>();
         int tottalCount = 0;
 
-        public LetterCounter(string inputString)
+        public DLetterfrequency(string inputString)
         {
             foreach (char letter in inputString)
             {

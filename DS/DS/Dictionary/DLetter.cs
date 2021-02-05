@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DS.Dictionary
 {
-    public class LetterConvertor
+    public class DLetter
     {
-        public static int ToNumber( char letter)
+        public static int ToInt( char letter)
         {
             if (Char.IsUpper(letter))
             {
@@ -18,12 +18,12 @@ namespace DS.Dictionary
             }
             else
             {
-                Console.WriteLine("Error::LetterConvertor>>> input not a letter");
+                Console.WriteLine("Error :: Dictionary/DLetter.cs >>> input not a letter");
                 return -1;
             }
                 
         }
-        public static char ToCharUpper( int letter)
+        public static char ToCharUp( int letter)
         {
             if (letter >= 0 && letter <= 25)
             {
@@ -31,11 +31,11 @@ namespace DS.Dictionary
             }
             else
             {
-                Console.WriteLine("Error::LetterConvertor>>> input not a letter");
+                Console.WriteLine("Error :: Dictionary/DLetter.cs >>> input not a letter");
                 return '\0';
             }
         }
-        public static char ToCharLower( int letter)
+        public static char ToCharLo( int letter)
         {
             if (letter >= 0 && letter <= 25)
             {
@@ -43,9 +43,10 @@ namespace DS.Dictionary
             }
             else
             {
-                Console.WriteLine("Error::LetterConvertor>>> input not a letter");
+                Console.WriteLine("Error :: Dictionary/DLetter.cs >>> input not a letter");
                 return '\0';
             }
         }
+
     }
 }

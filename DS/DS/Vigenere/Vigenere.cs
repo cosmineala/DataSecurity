@@ -17,13 +17,15 @@ namespace DS.Vigenere
                 Console.WriteLine(Vigenere.Encrypt(message, key));
             public static void Decrypt(string message, string key) =>
                 Console.WriteLine(Vigenere.Decrypt(message, key));
-            public static void DectyptBruteforce(string message, IEnumerable<string> keys, int amount)
+            public static void DectyptBruteforce(string message, int amount )
             {
-                IEnumerable<Container> output = Vigenere.DecryptBruteforce(message, keys);
+                var keys = DGenerator.GenerateAll(amount,DGenerator.AlphabetUp);
+
+                IEnumerable<Container> output = Vigenere.DecryptBruteforce(message, keys, amount);
                 int count = 0;
                 foreach(var variant in output)
                 {
-                    Console.WriteLine(variant.matches + " | " + variant.message);
+                    Console.WriteLine(variant.matches + " | " + variant.message + " | " + variant.key);
                     if( count++ > amount)
                     {
                         return;
@@ -99,7 +101,7 @@ namespace DS.Vigenere
             {
                 if (Char.IsLetter(message[i]))
                 {
-                    output += LetterConvertor.ToCharUpper((LetterConvertor.ToNumber(message[i]) + LetterConvertor.ToNumber(key[(i - j) % key.Length])) % 26);
+                    output += DLetter.ToCharUp((DLetter.ToInt(message[i]) + DLetter.ToInt(key[(i - j) % key.Length])) % 26);
                 }
                 else
                 {
@@ -118,7 +120,7 @@ namespace DS.Vigenere
             {
                 if (Char.IsLetter(message[i]))
                 {
-                    var part = LetterConvertor.ToNumber(message[i]) - LetterConvertor.ToNumber(key[(i - j) % key.Length]);
+                    var part = DLetter.ToInt(message[i]) - DLetter.ToInt(key[(i - j) % key.Length]);
                     output += ToCyclicAlphabet(part);
                 }
                 else
@@ -134,23 +136,30 @@ namespace DS.Vigenere
         {
             public string message;
             public int matches;
+            public string key;
         }
 
-        public static IEnumerable<Container> DecryptBruteforce(string message, IEnumerable<string> keys )
+        public static IEnumerable<Container> DecryptBruteforce(string message, IEnumerable<string> keys, int amount )
         {
-            List<Container> output = new List<Container>();
+            int max = 0;
+            LinkedList<Container> output = new LinkedList<Container>();
             //foreach( var key in keys)
             object lockObkect = new object();
             Parallel.ForEach(keys, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, (key) =>
             {
                 var variant = Decrypt(message, key);
-                Container container = new Container() { message = variant, matches = WordsAnalyzer.GetMatchesNumber(variant) };
-                lock (lockObkect)
+                Container container = new Container() { message = variant, matches = DWord.GetMatchesNumber(variant), key = key };
+                if( container.matches > max)
                 {
-                    output.Add( container );
+                    lock (lockObkect)
+                    {
+                        max = container.matches;                        
+                        output.AddFirst(container);
+                    }
                 }
+                
             });
-            output.Sort( (x,y)=> y.matches.CompareTo(x.matches ));
+
             return output;
         }
         // ~ Clasic
@@ -167,7 +176,7 @@ namespace DS.Vigenere
                 {
                     if( i-j < key.Length)
                     {
-                        output += LetterConvertor.ToCharUpper((LetterConvertor.ToNumber(message[i]) + LetterConvertor.ToNumber(key[(i - j) % key.Length])) % 26);
+                        output += DLetter.ToCharUp((DLetter.ToInt(message[i]) + DLetter.ToInt(key[(i - j) % key.Length])) % 26);
                     }
                     else
                     {
@@ -175,9 +184,9 @@ namespace DS.Vigenere
                         {
                             k++;
                         }
-                        var letter = LetterConvertor.ToNumber(message[i]);
-                        var letterPermutation = LetterConvertor.ToNumber(message[i - j + k - key.Length]);
-                        output += LetterConvertor.ToCharUpper(( letter + letterPermutation ) % 26);
+                        var letter = DLetter.ToInt(message[i]);
+                        var letterPermutation = DLetter.ToInt(message[i - j + k - key.Length]);
+                        output += DLetter.ToCharUp(( letter + letterPermutation ) % 26);
                     }
                 }
                 else
@@ -200,7 +209,7 @@ namespace DS.Vigenere
                 {
                     if (i - j < key.Length)
                     {
-                        var part = LetterConvertor.ToNumber(message[i]) - LetterConvertor.ToNumber(key[(i - j) % key.Length]);
+                        var part = DLetter.ToInt(message[i]) - DLetter.ToInt(key[(i - j) % key.Length]);
                         output += ToCyclicAlphabet(part);
                     }
                     else {
@@ -210,8 +219,8 @@ namespace DS.Vigenere
                             k++;
                             keyChar = output[i - j + k - key.Length];
                         }
-                        var letter = LetterConvertor.ToNumber(message[i]);
-                        var letterPermutation = LetterConvertor.ToNumber(output[i - j + k - key.Length]);
+                        var letter = DLetter.ToInt(message[i]);
+                        var letterPermutation = DLetter.ToInt(output[i - j + k - key.Length]);
                         var part = letter - letterPermutation;
                         output += ToCyclicAlphabet(part);
                     }
@@ -236,15 +245,15 @@ namespace DS.Vigenere
             {
                 if (Char.IsLetter(message[i]))
                 {
-                    int partial = LetterConvertor.ToNumber(key[(i - j) % key.Length]) - LetterConvertor.ToNumber(message[i]);
+                    int partial = DLetter.ToInt(key[(i - j) % key.Length]) - DLetter.ToInt(message[i]);
 
                     if( partial < 0)
                     {
-                        output += LetterConvertor.ToCharUpper(partial + 26);
+                        output += DLetter.ToCharUp(partial + 26);
                     }
                     else
                     {
-                        output += LetterConvertor.ToCharUpper(partial);
+                        output += DLetter.ToCharUp(partial);
                     }
                 }
                 else
@@ -266,11 +275,11 @@ namespace DS.Vigenere
         {
             if (part >= 0)
             {
-                return LetterConvertor.ToCharUpper(part);
+                return DLetter.ToCharUp(part);
             }
             else
             {
-                return LetterConvertor.ToCharUpper(26 + part);
+                return DLetter.ToCharUp(26 + part);
             }
         }
 
