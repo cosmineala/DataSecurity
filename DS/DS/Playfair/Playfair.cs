@@ -1,12 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
+using DS.Dictionary;
 
 namespace DS.Playfair
 {
     public class Playfair
     {
+	
+		private static string ReplaceDuplicateLettersFromGroups(string input)
+		{
+			var output = "";
+			output += input[0];
+			for( int i = 1; i < input.Length ; i ++)
+            {
+				if( (i-1) % 3 == 0 && input[i] == input[i-1])
+                {
+					output += 'X';
+                }
+                else
+                {
+					output += input[i];
+                }
+            }
+			if( input[input.Length-2] == ' ')
+            {
+				output += 'X';
+            }
+
+			return output;
+		}
+
+		public static string ToPlayfairInput( string message )
+        {
+			message = DWord.ToOnlyLetters(message);
+			message = message.ToUpper();
+			message = message.Replace('J', 'I');
+			message = DWord.ToPaitsOfX(message, 2);
+			message = ReplaceDuplicateLettersFromGroups(message);
+
+			return message;
+        }
+
+		public static string ToPlayfairKeyFull( string key)
+        {
+			key = DWord.ToOnlyLetters(key);
+			key = key.ToUpper();
+			key = key.Replace('J', 'I');
+			//key = DWord.ToOrderOnce(key);
+			key = new string(key.Distinct().ToArray());
+			key = DWord.FillWithAlphabet(key);
+			return key;
+		}
+
+		//####################################
 		public class Print
         {
 			public static void Encrypt(string input, string key)
