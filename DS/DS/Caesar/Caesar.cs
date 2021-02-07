@@ -86,6 +86,12 @@ namespace DS.Caesar
             {
                 //bestLetter -> freq
                 int shift = messageFL - englishFL;
+
+                if( shift < 0)
+                {
+                    shift += 25;
+                }
+
                 string output;
 
                 if (shift < 10)

@@ -16,16 +16,10 @@ namespace Program
     {
         static void Main(string[] args)
         {
-
-            //var t1 = "ana are {}:() 928 meresi pere moi   ";
-            //t1 = Playfair.ToPlayfairInput(t1);
-            //Console.WriteLine(t1);
-
-            var t2 = "Al b}er t";
-            //t2 = Playfair.ToPlayfairKeyFull(t2);
-            //Console.WriteLine(t2);
-
-            Matrix matrix = new Matrix(5, 5, t2);
+            Caesar.Print.DecryptCryptanalytic("IOYHB ASILK SESSE NDDAE FRONL WUBGY NQNLB RLNCL PKGYN QNLBR LNCBY UKX");
+            Caesar.Print.Bruteforce("IOYHB ASILK SESSE NDDAE FRONL WUBGY NQNLB RLNCL PKGYN QNLBR LNCBY UKX");
         }
     }
 }
+
+
