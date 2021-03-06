@@ -38,7 +38,7 @@ namespace DS.Vigenere
             public static void AutoEncrypt( string message, string key) =>
                 Console.WriteLine(Vigenere.AutoEncrypt(message, key));
             public static void AutoDecrypt(string message, string key) =>
-                Console.WriteLine(Vigenere.AutoDecrypt(message, key));
+                Console.WriteLine(Vigenere.AutoDecrypt(message, key) + " | " + DWord.GetMatchesNumber( Vigenere.AutoDecrypt(message, key)) );
             // Auto key
 
             // Beaufort

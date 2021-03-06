@@ -82,6 +82,9 @@ namespace DS.Caesar
             counter.sortByAmount();
             var messageFL = counter.GetBest(); // message most frequent letter
 
+            Console.WriteLine(counter.ToString());
+            Console.WriteLine();
+
             foreach ( var englishFL in DLetterfrequency.FrequencyList)
             {
                 //bestLetter -> freq

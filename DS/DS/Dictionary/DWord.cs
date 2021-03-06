@@ -67,6 +67,16 @@ namespace DS.Dictionary
             return output;
         }
 
+        public static string ToAlphabetKeyFull(string key)
+        {
+            key = DWord.ToOnlyLetters(key);
+            key = key.ToUpper();
+            //key = DWord.ToOrderOnce(key);
+            key = new string(key.Distinct().ToArray());
+            key = DWord.FillWithAlphabetFull(key);
+            return key;
+        }
+
         public static string ToPaitsOfX( string input, int noOfLettersInGroup)
         {
             var output = "";
@@ -90,11 +100,23 @@ namespace DS.Dictionary
                                                                      // a   b   c   d   e   f   g   h   ij  k   l   m   n   o   p   q   r   s   t   u   v   w   x   y   z
         public static List<char> PlayfairAlphabet = new List<char>() { 'A','B','C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
         public static string PlayfairAmplahetString { get; } = "abcdefghiklmnopqrstuvwxyz";
+        public static string FullAmplahetString { get; } = "abcdefghijklmnopqrstuvwxyz";
 
         public static string FillWithAlphabet( string input)
         {
             var all = new string(PlayfairAmplahetString).ToUpper();
             foreach ( var letter in input)
+            {
+                all = all.Replace(letter, ' ');
+            }
+            all = RemoveWhitespace(all);
+            return input + all;
+        }
+
+        public static string FillWithAlphabetFull(string input)
+        {
+            var all = new string(FullAmplahetString).ToUpper();
+            foreach (var letter in input)
             {
                 all = all.Replace(letter, ' ');
             }

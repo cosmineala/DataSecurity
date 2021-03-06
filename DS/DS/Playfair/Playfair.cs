@@ -64,7 +64,7 @@ namespace DS.Playfair
 			}
 			public static void Decrypt(string input, string key)
 			{
-				Console.WriteLine(Playfair.Decrypt(input, key));
+				Console.WriteLine(Playfair.Decrypt(input, key) + " | " + DWord.GetMatchesNumber(Playfair.Decrypt(input, key)));
 			}
 
 		}
